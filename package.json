@@ -1,0 +1,30 @@
+{
+  "name": "guess-cms",
+  "version": "1.0.0",
+  "description": "Guess CMS by a given url.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marrouchi/guess-cms.git"
+  },
+  "keywords": [
+    "cms",
+    "guess",
+    "detect"
+  ],
+  "author": "Mohamed Marrouchi <marrouchi.mohamed@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marrouchi/guess-cms/issues"
+  },
+  "homepage": "https://github.com/marrouchi/guess-cms#readme",
+  "dependencies": {
+    "async": "^2.0.1",
+    "cheerio": "^0.22.0",
+    "lodash": "^4.15.0",
+    "request": "^2.74.0"
+  }
+}
