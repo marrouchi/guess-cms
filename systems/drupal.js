@@ -37,7 +37,7 @@ module.exports = {
       }, function(error, response, body) {
         // Something went wrong
         if(error){
-          callback(error, null);
+          callback({method: arguments.callee.name, err: error}, null);
           return;
         }
 
@@ -58,7 +58,7 @@ module.exports = {
       }, function(error, response, body) {
         // Something went wrong
         if(error){
-          callback(error, null);
+          callback({method: arguments.callee.name, err: error}, null);
           return;
         }
 
@@ -79,7 +79,7 @@ module.exports = {
       }, function(error, response, body) {
         // Something went wrong
         if(error){
-          callback(error, null);
+          callback({method: arguments.callee.name, err: error}, null);
           return;
         }
         if('x-generator' in response.headers && response.headers['x-generator'].indexOf('Drupal') > -1) {
@@ -100,7 +100,7 @@ module.exports = {
       }, function(error, response, body) {
         // Something went wrong
         if(error){
-          callback(error, null);
+          callback({method: arguments.callee.name, err: error}, null);
           return;
         }
 
@@ -126,7 +126,7 @@ module.exports = {
       }, function(error, response, body) {
         // Something went wrong
         if(error){
-          callback(error, null);
+          callback({method: arguments.callee.name, err: error}, null);
           return;
         }
         // Check modules/node/node.css content
