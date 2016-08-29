@@ -115,5 +115,29 @@ module.exports = {
         }
       });
     },
+  },
+  version: function(websiteUrl, callback){
+    var request = require("request"); 
+
+    // Check readme
+    request({
+      uri: websiteUrl + '/feed/',
+    }, function(error, response, body) {
+
+      // Something went wrong
+      if(error){
+        callback(error, null);
+        return;
+      }
+
+      // Check version
+      var regex = /<generator>http:\/\/wordpress.org\/\?v=([0-9\.]+)<\/generator>/i;
+      var match = body.match(regex);
+      if(match && match.length == 2){
+        callback(null, match[1]);
+      }else{
+        callback(new Error('Unable to get version in (/feed)'), null);       
+      }
+    });
   }
 };

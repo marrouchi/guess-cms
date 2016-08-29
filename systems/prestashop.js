@@ -113,5 +113,29 @@ module.exports = {
         }
       });
     },
+  },
+  version: function(websiteUrl, callback){
+    var request = require("request"); 
+
+    // Check readme
+    request({
+      uri: websiteUrl + '/docs/CHANGELOG.txt',
+    }, function(error, response, body) {
+
+      // Something went wrong
+      if(error){
+        callback(error, null);
+        return;
+      }
+
+      // Check version
+      var regex = /\#   v([0-9\.]+) \- \([0-9]{4}-[0-9]{2}-[0-9]{2}\)/i;
+      var match = body.match(regex);
+      if(match && match.length == 2){
+        callback(null, match[1]);
+      }else{
+        callback(new Error('Unable to get version in (/docs/CHANGELOG.txt)'), null);       
+      }
+    });
   }
 };

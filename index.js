@@ -23,34 +23,28 @@ module.exports = {
       
       var guessed = _.find(results, function(result){ return result.guessed; });       
       callback(null, guessed);
+    }); 
+  },
+
+  version: function(websiteUrl, cms, callback) {
+    
+    // check if cms is supported
+    if(['drupal','joomla','prestashop','wordpress'].indexOf(cms) === -1){
+      callback(new Error('`'+cms+'` is not supported yet.'), null);
+      return;
+    }
+
+    var system = require('./systems/'+cms);
+    system.version(websiteUrl, function(err, result){
+
+      // Something went wrong ?
+      if(err){
+        console.log('Error while getting cms version.');
+        callback(err, null);
+        return;
+      }
+      
+      callback(err, result);
     });
-    /*var joomla = require("./systems/joomla");
-    
-    joomla.guess(websiteUrl, function(err, results){
-      console.log(err,results);
-      callback(err,results);
-    });
-    */
-    /*var drupal = require("./systems/drupal");
-    
-    drupal.guess(websiteUrl, function(err, results){
-      console.log(err,results);
-      callback(err,results);
-    });*/
-
-    /*var wordpress = require("./systems/wordpress");
-    
-    wordpress.guess(websiteUrl, function(err, results){
-      console.log(err,results);
-      callback(err,results);
-    });*/
-
-    /*var prestashop = require("./systems/prestashop");
-    
-    prestashop.guess(websiteUrl, function(err, results){
-      console.log(err,results);
-      callback(err,results);
-    });*/
-
   },
 };

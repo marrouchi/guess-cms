@@ -114,5 +114,35 @@ module.exports = {
         }
       });
     },
+  },
+  version: function(websiteUrl, callback){
+    var request = require("request"); 
+
+    // Check readme
+    request({
+      uri: websiteUrl + '/language/en-GB/en-GB.xml',
+    }, function(error, response, body) {
+
+      // Something went wrong
+      if(error){
+        callback(error, null);
+        return;
+      }
+
+      // Check cms
+      if(body.indexOf('<author>Joomla! Project</author>') === -1) {
+        callback(new Error('Are your sure this is a Joomla! ?'), null);
+        return;
+      }
+
+      // Check version
+      var regex = /<version>(.+)<\/version>/i;
+      var match = body.match(regex);
+      if(match && match.length == 2){
+        callback(null, match[1]);
+      }else{
+        callback(new Error('Unable to get version in (/language/en-GB/en-GB.xml)'), null);       
+      }
+    });
   }
 };
