@@ -1,6 +1,6 @@
 {
   "name": "guess-cms",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Guess CMS by a given url.",
   "main": "index.js",
   "scripts": {
