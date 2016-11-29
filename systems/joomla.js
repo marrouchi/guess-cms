@@ -10,6 +10,7 @@ module.exports = {
       generatorHeader: system.methods.generatorHeader.bind(null,websiteUrl),
       generatorMeta: system.methods.generatorMeta.bind(null,websiteUrl),
       coreJs: system.methods.coreJs.bind(null,websiteUrl),
+      comFile: system.methods.comFile.bind(null,websiteUrl),
     }, function(err, results) {
         // result now equals the first file in the list that exists
         if(err){
@@ -75,7 +76,7 @@ module.exports = {
       var cheerio = require("cheerio");
       // Check generator headers
       request({
-        uri: websiteUrl,
+        uri: websiteUrl+'/index.php?tmpl=component',
       }, function(error, response, body) {
         // Something went wrong
         if(error){
@@ -110,7 +111,28 @@ module.exports = {
         if(body && body.indexOf('var Joomla={};') > -1) {
           callback(error, true);
         }else{
-          callback(error, false);       
+          callback(error, false);
+        }
+      });
+    },
+
+    comFile: function(websiteUrl, callback) {
+      
+      var request = require("request");
+      // Check generator headers
+      request({
+        uri: websiteUrl+'/administrator/components/com_users/users.xml',
+      }, function(error, response, body) {
+        // Something went wrong
+        if(error){
+          callback({method: 'comFile', err: error}, null);
+          return;
+        }
+        
+        if(body && body.indexOf('<author>Joomla! Project</author>') > -1) {
+          callback(error, true);
+        }else{
+          callback(error, false);
         }
       });
     },
