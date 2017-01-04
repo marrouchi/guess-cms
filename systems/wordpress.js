@@ -131,7 +131,7 @@ module.exports = {
       }
 
       // Check version
-      var regex = /<generator>http:\/\/wordpress.org\/\?v=([0-9\.]+)<\/generator>/i;
+      var regex = /<generator>https?:\/\/wordpress.org\/\?v=([0-9\.]+)<\/generator>/i;
       var match = body.match(regex);
       if(match && match.length == 2){
         callback(null, match[1]);
