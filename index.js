@@ -3,12 +3,13 @@ var _ = require('lodash');
 
 module.exports = {
   guess: function(websiteUrl, callback) {
-    
+
     async.map([
       require('./systems/drupal'),
       require('./systems/joomla'),
       require('./systems/prestashop'),
       require('./systems/wordpress'),
+      require('./systems/magento'),
     ],function(system, callback) {
       system.guess(websiteUrl, function(err, result){
           callback(err, _.merge(result, {name: system.name}));
@@ -20,16 +21,16 @@ module.exports = {
         callback(err, null);
         return;
       }
-      
-      var guessed = _.find(results, function(result){ return result.guessed; });       
+
+      var guessed = _.find(results, function(result){ return result.guessed; });
       callback(null, guessed);
-    }); 
+    });
   },
 
   version: function(websiteUrl, cms, callback) {
-    
+
     // check if cms is supported
-    if(['drupal','joomla','prestashop','wordpress'].indexOf(cms) === -1){
+    if(['drupal','joomla','prestashop','wordpress','magento'].indexOf(cms) === -1){
       callback(new Error('`'+cms+'` is not supported yet.'), null);
       return;
     }
@@ -43,7 +44,7 @@ module.exports = {
         callback(err, null);
         return;
       }
-      
+
       callback(err, result);
     });
   },
